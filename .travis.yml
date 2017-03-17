@@ -6,4 +6,4 @@ jdk:
 sudo: false
 
 script:
-  - ant Travis_JUnitTest
+  - ant Travis_JUnit_Test
