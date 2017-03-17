@@ -176,6 +176,9 @@
   
   
   <target name="compile.module.gitfolderitp" depends="compile.module.gitfolderitp.production,compile.module.gitfolderitp.tests" description="Compile module GitFolderITP"/>
+
+<target name="Travis_JUnit_Test" depends="compile.module.gitfolderitp.production,compile.module.gitfolderitp.tests" description="Compile module GitFolderITP"/>
+
   
   <target name="compile.module.gitfolderitp.production" depends="register.custom.compilers" description="Compile module GitFolderITP; production classes">
     <mkdir dir="${gitfolderitp.output.dir}"/>
