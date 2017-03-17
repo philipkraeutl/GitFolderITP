@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="travis_junit_test" default="all">
+<project name="gitfolderitp" default="all">
   
   
-  <property file="Travis_JUnitTest.properties"/>
+  <property file="build.properties"/>
   <!-- Uncomment the following property if no tests compilation is needed -->
   <!-- 
   <property name="skip.tests" value="true"/>
@@ -49,7 +49,6 @@
     <exclude name="**/?*.flex"/>
     <exclude name="**/?*.kt"/>
     <exclude name="**/?*.clj"/>
-    <exclude name="**/?*.aj"/>
   </patternset>
   
   <!-- JDK definitions -->
@@ -92,6 +91,9 @@
   
   <path id="library.hamcrest-core-1.3.classpath">
     <pathelement location="${basedir}/hamcrest-core-1.3.jar"/>
+  </path>
+  
+  <path id="library.junit-4.12.classpath">
     <pathelement location="${basedir}/junit-4.12.jar"/>
   </path>
   
@@ -113,96 +115,100 @@
   <!-- Modules -->
   
   
-  <!-- Module Travis_Junit_Test -->
+  <!-- Module GitFolderITP -->
   
-  <dirname property="module.travis_junit_test.basedir" file="${ant.file}"/>
+  <dirname property="module.gitfolderitp.basedir" file="${ant.file}"/>
   
   
-  <property name="module.jdk.home.travis_junit_test" value="${project.jdk.home}"/>
-  <property name="module.jdk.bin.travis_junit_test" value="${project.jdk.bin}"/>
-  <property name="module.jdk.classpath.travis_junit_test" value="${project.jdk.classpath}"/>
+  <property name="module.jdk.home.gitfolderitp" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.gitfolderitp" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.gitfolderitp" value="${project.jdk.classpath}"/>
   
-  <property name="compiler.args.travis_junit_test" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  <property name="compiler.args.gitfolderitp" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
   
-  <property name="travis_junit_test.output.dir" value="${module.travis_junit_test.basedir}/out/production/Travis_Junit_Test"/>
-  <property name="travis_junit_test.testoutput.dir" value="${module.travis_junit_test.basedir}/out/test/Travis_Junit_Test"/>
+  <property name="gitfolderitp.output.dir" value="${module.gitfolderitp.basedir}/out/production/GitFolderITP"/>
+  <property name="gitfolderitp.testoutput.dir" value="${module.gitfolderitp.basedir}/out/test/GitFolderITP"/>
   
-  <path id="travis_junit_test.module.bootclasspath">
+  <path id="gitfolderitp.module.bootclasspath">
     <!-- Paths to be included in compilation bootclasspath -->
   </path>
   
-  <path id="travis_junit_test.module.production.classpath">
-    <path refid="${module.jdk.classpath.travis_junit_test}"/>
+  <path id="gitfolderitp.module.production.classpath">
+    <path refid="${module.jdk.classpath.gitfolderitp}"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.junit-4.12.classpath"/>
   </path>
   
-  <path id="travis_junit_test.runtime.production.module.classpath">
-    <pathelement location="${travis_junit_test.output.dir}"/>
+  <path id="gitfolderitp.runtime.production.module.classpath">
+    <pathelement location="${gitfolderitp.output.dir}"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.junit-4.12.classpath"/>
   </path>
   
-  <path id="travis_junit_test.module.classpath">
-    <path refid="${module.jdk.classpath.travis_junit_test}"/>
-    <pathelement location="${travis_junit_test.output.dir}"/>
+  <path id="gitfolderitp.module.classpath">
+    <path refid="${module.jdk.classpath.gitfolderitp}"/>
+    <pathelement location="${gitfolderitp.output.dir}"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.junit-4.12.classpath"/>
   </path>
   
-  <path id="travis_junit_test.runtime.module.classpath">
-    <pathelement location="${travis_junit_test.testoutput.dir}"/>
-    <pathelement location="${travis_junit_test.output.dir}"/>
+  <path id="gitfolderitp.runtime.module.classpath">
+    <pathelement location="${gitfolderitp.testoutput.dir}"/>
+    <pathelement location="${gitfolderitp.output.dir}"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.junit-4.12.classpath"/>
   </path>
   
   
-  <patternset id="excluded.from.module.travis_junit_test">
+  <patternset id="excluded.from.module.gitfolderitp">
     <patternset refid="ignored.files"/>
   </patternset>
   
-  <patternset id="excluded.from.compilation.travis_junit_test">
-    <patternset refid="excluded.from.module.travis_junit_test"/>
+  <patternset id="excluded.from.compilation.gitfolderitp">
+    <patternset refid="excluded.from.module.gitfolderitp"/>
   </patternset>
   
-  <path id="travis_junit_test.module.sourcepath">
-    <dirset dir="${module.travis_junit_test.basedir}">
+  <path id="gitfolderitp.module.sourcepath">
+    <dirset dir="${module.gitfolderitp.basedir}">
       <include name="src"/>
     </dirset>
   </path>
   
   
-  <target name="compile.module.travis_junit_test" depends="compile.module.travis_junit_test.production,compile.module.travis_junit_test.tests" description="Compile module Travis_Junit_Test"/>
+  <target name="compile.module.gitfolderitp" depends="compile.module.gitfolderitp.production,compile.module.gitfolderitp.tests" description="Compile module GitFolderITP"/>
   
-  <target name="compile.module.travis_junit_test.production" depends="register.custom.compilers" description="Compile module Travis_Junit_Test; production classes">
-    <mkdir dir="${travis_junit_test.output.dir}"/>
-    <javac2 destdir="${travis_junit_test.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.travis_junit_test}/javac">
-      <compilerarg line="${compiler.args.travis_junit_test}"/>
-      <bootclasspath refid="travis_junit_test.module.bootclasspath"/>
-      <classpath refid="travis_junit_test.module.production.classpath"/>
-      <src refid="travis_junit_test.module.sourcepath"/>
-      <patternset refid="excluded.from.compilation.travis_junit_test"/>
+  <target name="compile.module.gitfolderitp.production" depends="register.custom.compilers" description="Compile module GitFolderITP; production classes">
+    <mkdir dir="${gitfolderitp.output.dir}"/>
+    <javac2 destdir="${gitfolderitp.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.gitfolderitp}/javac">
+      <compilerarg line="${compiler.args.gitfolderitp}"/>
+      <bootclasspath refid="gitfolderitp.module.bootclasspath"/>
+      <classpath refid="gitfolderitp.module.production.classpath"/>
+      <src refid="gitfolderitp.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.gitfolderitp"/>
     </javac2>
     
-    <copy todir="${travis_junit_test.output.dir}">
-      <fileset dir="${module.travis_junit_test.basedir}/src">
+    <copy todir="${gitfolderitp.output.dir}">
+      <fileset dir="${module.gitfolderitp.basedir}/src">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
     </copy>
   </target>
   
-  <target name="compile.module.travis_junit_test.tests" depends="register.custom.compilers,compile.module.travis_junit_test.production" description="compile module Travis_Junit_Test; test classes" unless="skip.tests"/>
+  <target name="compile.module.gitfolderitp.tests" depends="register.custom.compilers,compile.module.gitfolderitp.production" description="compile module GitFolderITP; test classes" unless="skip.tests"/>
   
-  <target name="clean.module.travis_junit_test" description="cleanup module">
-    <delete dir="${travis_junit_test.output.dir}"/>
-    <delete dir="${travis_junit_test.testoutput.dir}"/>
+  <target name="clean.module.gitfolderitp" description="cleanup module">
+    <delete dir="${gitfolderitp.output.dir}"/>
+    <delete dir="${gitfolderitp.testoutput.dir}"/>
   </target>
   
   <target name="init" description="Build initialization">
     <!-- Perform any build initialization in this target -->
   </target>
   
-  <target name="clean" depends="clean.module.travis_junit_test" description="cleanup all"/>
+  <target name="clean" depends="clean.module.gitfolderitp" description="cleanup all"/>
   
-  <target name="build.modules" depends="init, clean, compile.module.travis_junit_test" description="build all modules"/>
+  <target name="build.modules" depends="init, clean, compile.module.gitfolderitp" description="build all modules"/>
   
   <target name="all" depends="build.modules" description="build all"/>
 </project>
