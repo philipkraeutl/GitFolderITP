@@ -6,4 +6,4 @@ jdk:
 sudo: false
 
 script:
-  - ant Travis_JUnit_Test
+  - ant compile.module.gitfolderitp.tests
