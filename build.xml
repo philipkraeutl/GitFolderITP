@@ -99,18 +99,6 @@
   
   
   <!-- Global Libraries -->
-  <!-- Register Custom Compiler Taskdefs -->
-  <property name="javac2.home" value="${idea.home}/lib"/>
-  <path id="javac2.classpath">
-    <pathelement location="${javac2.home}/javac2.jar"/>
-    <pathelement location="${javac2.home}/jdom.jar"/>
-    <pathelement location="${javac2.home}/asm-all.jar"/>
-    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
-  </path>
-  <target name="register.custom.compilers">
-    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
-    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
-  </target>
   
   <!-- Modules -->
   
@@ -177,15 +165,15 @@
   
   <target name="compile.module.gitfolderitp" depends="compile.module.gitfolderitp.production,compile.module.gitfolderitp.tests" description="Compile module GitFolderITP"/>
   
-  <target name="compile.module.gitfolderitp.production" depends="register.custom.compilers" description="Compile module GitFolderITP; production classes">
+  <target name="compile.module.gitfolderitp.production" description="Compile module GitFolderITP; production classes">
     <mkdir dir="${gitfolderitp.output.dir}"/>
-    <javac2 destdir="${gitfolderitp.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.gitfolderitp}/javac">
+    <javac destdir="${gitfolderitp.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.gitfolderitp}/javac">
       <compilerarg line="${compiler.args.gitfolderitp}"/>
       <bootclasspath refid="gitfolderitp.module.bootclasspath"/>
       <classpath refid="gitfolderitp.module.production.classpath"/>
       <src refid="gitfolderitp.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.gitfolderitp"/>
-    </javac2>
+    </javac>
     
     <copy todir="${gitfolderitp.output.dir}">
       <fileset dir="${module.gitfolderitp.basedir}/src">
@@ -195,7 +183,7 @@
     </copy>
   </target>
   
-  <target name="compile.module.gitfolderitp.tests" depends="register.custom.compilers,compile.module.gitfolderitp.production" description="compile module GitFolderITP; test classes" unless="skip.tests"/>
+  <target name="compile.module.gitfolderitp.tests" depends="compile.module.gitfolderitp.production" description="compile module GitFolderITP; test classes" unless="skip.tests"/>
   
   <target name="clean.module.gitfolderitp" description="cleanup module">
     <delete dir="${gitfolderitp.output.dir}"/>
