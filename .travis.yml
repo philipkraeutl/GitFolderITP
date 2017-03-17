@@ -4,4 +4,4 @@ language: java
 sudo: false
 
 script:
-  - ant compile.module.gitfolderitp.tests
+   ant compile.module.gitfolderitp.tests
